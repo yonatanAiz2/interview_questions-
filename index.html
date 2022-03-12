@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  #cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #cards>* {
+    margin: 10px;
+  }
+</style>
+
+<body>
+  <header>
+    <h1>Test me</h1>
+  </header>
+  <main>
+    <h3>page <span id="page-number"></span></h3>
+    <div id="cards"></div>
+    <button id="fetch-characters-btn" onclick="fetchCharacters()">Fetch characters</button>
+  </main>
+</body>
+
+<script>
+  const API_ENDPOINT = "https://rickandmortyapi.com/api";
+  let page = 0;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    getPageNumElement().innerHTML = page
+  });
+
+  const getCardsContainerElement = () => document.getElementById("cards");
+  const getPageNumElement = () => document.getElementById('page-number');
+
+  function createError(msg) {
+    const el = document.createElement("div");
+    el.id = "error";
+    el.textContent = msg;
+    return el;
+  };
+
+  function createLoader(text = "loader...") {
+    const el = document.createElement("div");
+    el.id = "loader";
+    el.textContent = text;
+    return el;
+  };
+
+  function createCard(character) {
+    const el = document.createElement("div");
+    el.setAttribute("role", "card");
+    const title = document.createElement("h2");
+    title.textContent = character.name;
+    const img = document.createElement("img");
+    img.src = character.image;
+    img.alt = character.name;
+
+    el.appendChild(title);
+    el.appendChild(img);
+
+    return el;
+  };
+
+  async function fetchCharacters() {
+    const cards = getCardsContainerElement();
+    const loader = createLoader();
+    cards.appendChild(loader);
+    try {
+      const res = await fetch(`${API_ENDPOINT}/character?page=${page}`);
+      const characters = await res.json();
+      characters.results.forEach((character) => {
+        cards.appendChild(createCard(character));
+      });
+
+      if (characters.info.pages > page) {
+        getPageNumElement().innerHTML = ++page;
+      }
+    } catch (e) {
+      console.log(e)
+      cards.appendChild(createError("something went wrong"));
+    } finally {
+      cards.removeChild(loader);
+    }
+  }
+</script>
+
+</html>
