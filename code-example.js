@@ -88,14 +88,3 @@ async function f() {
 }
 
 f();
-
-function name(params) {
-  const obj = {};
-  [1, 2, 3, 4, 5].reduce(
-    acc,
-    (curr) => {
-      obj[curr][a] = curr;
-    },
-    {}
-  );
-}
