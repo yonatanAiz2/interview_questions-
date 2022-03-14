@@ -104,3 +104,30 @@ async function f() {
 }
 
 f();
+
+// Q6
+// How can we improve getDbsAndSubscriptions function
+const getDatabases = async () => {
+  // Fetching list of databases
+} 
+const getSubscriptions = async () => {
+  // Fetching list of subscriptions
+} 
+
+const normalizeDbsAndSubscription = () => {
+}
+
+
+const getDbsAndSubscriptions = async() => {
+  try {
+    const databases = await getDatabases();
+    const subscriptions = await getSubscriptions();
+    return normalizeDbsAndSubscription(databases, subscriptions)
+  } catch (error) {
+    console.log(error)
+  }
+
+
+}
+
+getDbsAndSubscriptions()
