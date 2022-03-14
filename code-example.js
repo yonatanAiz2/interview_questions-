@@ -1,4 +1,20 @@
-// Q1 - What is the output?
+// Q1 - what will be printed
+let obja = { a: 1 };
+let objb = { a: 1 };
+
+if ({ a: 1 } === { a: 1 }) {
+  console.log("Sunday");
+} else if ({ a: 1 } == { a: 1 }) {
+  console.log("Monday");
+} else if (obja === objb) {
+  console.log("Tuesday");
+} else if (Object.is(obja, objb)) {
+  console.log("Wednesday");
+} else {
+  console.log("Thursday");
+}
+
+// Q2 - What is the output?
 function createIncrement() {
   let count = 0;
   function increment() {
@@ -22,7 +38,7 @@ log();
 console.log(count);
 console.log(c);
 
-// Q-2
+// Q3
 // Whats happening here? how much time will take to the console.log to log, and how to improve
 const foo = (t = 1000) =>
   new Promise((res) =>
@@ -43,7 +59,7 @@ async function bar(...args) {
 
 bar(10000, 1000, undefined, 3000).then((res) => console.log(res));
 
-// Q3 - What is the output of each console.log and if there is a problem, how to fix it?
+// Q4 - What is the output of each console.log and if there is a problem, how to fix it?
 const obj = {
   foo: "bar",
   bar() {
@@ -60,7 +76,7 @@ const obj = {
 
 obj.bar();
 
-// Q4 - What is the order of the output
+// Q5 - What is the order of the output
 async function f() {
   console.log("1");
 
@@ -88,14 +104,3 @@ async function f() {
 }
 
 f();
-
-function name(params) {
-  const obj = {};
-  [1, 2, 3, 4, 5].reduce(
-    acc,
-    (curr) => {
-      obj[curr][a] = curr;
-    },
-    {}
-  );
-}
